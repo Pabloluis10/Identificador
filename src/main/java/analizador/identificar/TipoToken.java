@@ -6,7 +6,7 @@ package analizador.identificar;
  */
 public enum TipoToken {
     
-    ID("Identificador"), ENTERO("Entero"), DECIMAL("Decimal"), SIMBOLO("Simbolo");
+    ID("Identificador: "), ENTERO("Entero: "), DECIMAL("Decimal: "), SIMBOLO("Simbolo: "), ERROR("Error: ");
     
     private String tipo;
     
