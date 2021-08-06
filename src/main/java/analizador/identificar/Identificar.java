@@ -43,6 +43,7 @@ public class Identificar {
                     identificados.add(TipoToken.ERROR.getTipo()+linea.substring(pos, contador));//dato identificado
                 }
                 
+                i = contador;//para avanzar a la siguiete palabra y no repetir 
             }            
         }
         
