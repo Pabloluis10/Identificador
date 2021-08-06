@@ -28,12 +28,12 @@ public class Identificar {
                 int contador = pos+1;//para analizar los caracteres que estan delate del anterior caracter
                 caracter = linea.charAt(contador);
                
-                while(caracter != ' ' && cantPuntosDecimal<=1 && (Character.isDigit(caracter) || caracter=='.') && contador<tamaño){
+                while(caracter != ' ' && cantPuntosDecimal<2 && (Character.isDigit(caracter) || caracter=='.') && contador<tamaño){
                     if(caracter == '.'){
                         cantPuntosDecimal++;
                     }
-                    contador++;
                     caracter = linea.charAt(contador);
+                    contador++;
                 }
                 
                 if(Character.isLetter(caracter)){
@@ -42,7 +42,7 @@ public class Identificar {
                 
                 if(cantPuntosDecimal==0){
                     identificados.add(TipoToken.ENTERO.getTipo()+linea.substring(pos, contador));//dato identificado
-                } else if(cantPuntosDecimal == 1) {
+                } else if(cantPuntosDecimal < 2) {
                     identificados.add(TipoToken.DECIMAL.getTipo()+linea.substring(pos, contador));//dato identificado
                 } else {
                     identificados.add(TipoToken.ERROR.getTipo()+linea.substring(pos, contador));//dato identificado
@@ -53,7 +53,8 @@ public class Identificar {
             } else if(Character.isLetter(caracter)){//si inicia con una letra
                 int contador = pos+1;//para analizar el siguiente caracter
                 caracter = linea.charAt(contador);
-                while(Character.isLetter(caracter) || Character.isDigit(caracter) && contador < tamaño){//para verificar y que no se exceda del tamaño del texto
+                while(contador < tamaño && Character.isLetter(caracter) || Character.isDigit(caracter)){//para verificar y que no se exceda del tamaño del texto
+                    caracter = linea.charAt(contador);
                     contador++;
                 }
                 
@@ -64,11 +65,8 @@ public class Identificar {
         }
         
     }
-    
-  
-   
 
-    
-    
-    
+    public ArrayList<String> getIdentificados() {
+        return identificados;
+    }     
 }

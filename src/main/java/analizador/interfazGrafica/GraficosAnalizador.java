@@ -161,10 +161,11 @@ public class GraficosAnalizador extends javax.swing.JFrame {
         
         //imprimimos el resultado
         ArrayList<String> resultado = analizador.getIdentificados();
+        String textoResultado="";
         for(int i=0; i<resultado.size(); i++){
-            resultadoJTextArea.setText(resultado.get(i)+"\n");
+            textoResultado += (resultado.get(i)+"\n");
         }
-        
+        resultadoJTextArea.setText(textoResultado);
     }//GEN-LAST:event_analizarJButtonActionPerformed
 
     private void limpiarJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_limpiarJButtonActionPerformed
