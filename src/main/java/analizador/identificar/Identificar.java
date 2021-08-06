@@ -28,14 +28,19 @@ public class Identificar {
                 int contador = pos+1;//para analizar los caracteres que estan delate del anterior caracter
                 caracter = linea.charAt(contador);
                
-                while(caracter != ' ' && cantPuntosDecimal<=1 && (Character.isDigit(caracter) || caracter=='.')){
+                while(caracter != ' ' && cantPuntosDecimal<=1 && (Character.isDigit(caracter) || caracter=='.') && contador<tamaño){
                     if(caracter == '.'){
                         cantPuntosDecimal++;
                     }
                     contador++;
+                    caracter = linea.charAt(contador);
                 }
                 
-                if(cantPuntosDecimal==0){//si es un numero entero
+                if(Character.isLetter(caracter)){
+                    identificados.add(TipoToken.ERROR.getTipo()+linea.substring(pos, contador));//si hay una letra
+                }
+                
+                if(cantPuntosDecimal==0){
                     identificados.add(TipoToken.ENTERO.getTipo()+linea.substring(pos, contador));//dato identificado
                 } else if(cantPuntosDecimal == 1) {
                     identificados.add(TipoToken.DECIMAL.getTipo()+linea.substring(pos, contador));//dato identificado
@@ -44,7 +49,18 @@ public class Identificar {
                 }
                 
                 i = contador;//para avanzar a la siguiete palabra y no repetir 
-            }            
+                
+            } else if(Character.isLetter(caracter)){//si inicia con una letra
+                int contador = pos+1;//para analizar el siguiente caracter
+                caracter = linea.charAt(contador);
+                while(Character.isLetter(caracter) || Character.isDigit(caracter) && contador < tamaño){//para verificar y que no se exceda del tamaño del texto
+                    contador++;
+                }
+                
+                identificados.add(TipoToken.ID.getTipo()+linea.substring(pos, contador));
+            } else if(caracter != ' ') {
+                identificados.add(TipoToken.SIMBOLO.getTipo()+caracter);
+            }
         }
         
     }
